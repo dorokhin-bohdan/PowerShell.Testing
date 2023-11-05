@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup>
+		<PackageReference Update="Microsoft.PowerShell.SDK"     Version="7.2.16" />
+		<PackageReference Update="System.Management.Automation" Version="7.2.16" />
+		<PackageReference Update="System.Reactive"              Version="6.0.0" />
+
+		<!-- Test dependencies-->
+		<PackageReference Update="FluentAssertions"             Version="6.12.0" />
+		<PackageReference Update="Microsoft.NET.Test.Sdk"       Version="17.5.0" />
+		<PackageReference Update="xunit"                        Version="2.4.2" />
+		<PackageReference Update="xunit.runner.visualstudio"    Version="2.4.5" />
+		<PackageReference Update="coverlet.collector"           Version="3.2.0" />
+	</ItemGroup>
+</Project>

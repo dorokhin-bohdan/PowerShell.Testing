@@ -10,7 +10,7 @@ namespace PowerShell.Testing;
 
 public class PSTestingTool : IDisposable
 {
-    private readonly Runspace _runspace;
+    private readonly Runspace _runSpace;
     private readonly System.Management.Automation.PowerShell _instance;
     private readonly ISubject<MessageModel> _dataAddedSubject = new Subject<MessageModel>();
 
@@ -22,15 +22,15 @@ public class PSTestingTool : IDisposable
 
     private PSTestingTool()
     {
-        _runspace = RunspaceFactory.CreateRunspace();
-        _runspace.Open();
+        _runSpace = RunspaceFactory.CreateRunspace();
+        _runSpace.Open();
 
-        _instance = System.Management.Automation.PowerShell.Create(_runspace);
+        _instance = System.Management.Automation.PowerShell.Create(_runSpace);
         SubscribeOnStreamEvents();
     }
 
     /// <summary>
-    /// Occurs when data was recieved.
+    /// Occurs when data was received.
     /// </summary>
     public IObservable<MessageModel> OnDataAdded => _dataAddedSubject.AsObservable();
 
@@ -39,8 +39,9 @@ public class PSTestingTool : IDisposable
     /// </summary>
     public void Dispose()
     {
+        _dataAddedSubject.OnCompleted();
         _instance.Dispose();
-        _runspace.Dispose();
+        _runSpace.Dispose();
     }
 
     /// <summary>
@@ -79,7 +80,6 @@ public class PSTestingTool : IDisposable
     public void Stop()
     {
         _instance.Stop();
-        _dataAddedSubject.OnCompleted();
     }
 
     /// <summary>
@@ -93,12 +93,7 @@ public class PSTestingTool : IDisposable
 
     private void ConsumeData(object? sender, DataAddedEventArgs evtArgs)
     {
-        if (sender is not IList list)
-        {
-            return;
-        }
-
-        var data = list[evtArgs.Index];
+        var data = (sender as IList)?[evtArgs.Index];
         var message = new MessageModel(data?.ToString());
 
         _dataAddedSubject.OnNext(message);

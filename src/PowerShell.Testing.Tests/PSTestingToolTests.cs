@@ -189,4 +189,41 @@ public class PSTestingToolTests
         action.Should().ThrowAsync<TestingToolException>()
             .WithMessage($"Unable to invoke '{invalidCommand}' command.");
     }
+
+    [Fact]
+    public void Dispose_ShouldCompleteSubject()
+    {
+        // Arrange
+        using var tool = PSTestingTool.Create();
+        var completed = false;
+        using var _ = tool.OnDataAdded.Subscribe(_ => { }, () => { completed = true; });
+
+        // Act
+        tool.Dispose();
+
+        // Assert
+        completed.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task Stop_ShouldStopCurrentCommand()
+    {
+        // Arrange
+        const int operationCount = 10;
+        const int delay = 500;
+        const string operationName = "Heavy operation";
+        using var tool = PSTestingTool.Create();
+
+        var addedMessages = new List<string?>();
+        _ = tool.OnDataAdded.Subscribe(x => addedMessages.Add(x.Message));
+        _ = tool.ExecuteScriptAsync($"for ($i = 1; $i -le {operationCount}; $i++ ) {{ Write-Progress -Activity \"{operationName}\" -Status \"$i% Complete:\" -PercentComplete $i; Start-Sleep -Milliseconds 100; }}");
+
+        await Task.Delay(delay);
+
+        // Act
+        tool.Stop();
+
+        // Assert
+        addedMessages.Should().HaveCountLessThan(operationCount);
+    }
 }

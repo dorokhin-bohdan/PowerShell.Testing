@@ -1,5 +1,5 @@
 # PowerShell.Testing
-[![.NET](https://github.com/dorokhin-bohdan/PowerShell.Testing/actions/workflows/dotnet.yml/badge.svg?branch=main)](https://github.com/dorokhin-bohdan/PowerShell.Testing/actions/workflows/dotnet.yml)
+[![.NET](https://github.com/dorokhin-bohdan/PowerShell.Testing/actions/workflows/dotnet.yml/badge.svg?branch=main)](https://github.com/dorokhin-bohdan/PowerShell.Testing/actions/workflows/dotnet.yml) [![#](https://img.shields.io/nuget/v/Tool.PowerShell.Testing.svg)](https://www.nuget.org/packages/Tool.PowerShell.Testing/)
 ---
 
 ## Goal

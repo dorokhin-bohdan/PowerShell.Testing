@@ -9,10 +9,10 @@
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<Configurations>Debug;Release</Configurations>
 		<AssemblyName>PowerShell.Testing</AssemblyName>
-		<PackageId>PowerShell.Testing</PackageId>
+		<PackageId>Tool.PowerShell.Testing</PackageId>
 		<RootNamespace>PowerShell.Testing</RootNamespace>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-		<PackageVersion>1.0.2</PackageVersion>
+		<PackageVersion>1.0.0</PackageVersion>
 		<Title>PowerShell.Testing</Title>
 		<Description>The PowerShell testing tool provides the ability to run CmdLet commands with streaming output information.</Description>
 		<Copyright>Copyright (c) 2023 Bohdan Dorokhin</Copyright>
@@ -20,7 +20,12 @@
 		<RepositoryUrl>https://github.com/dorokhin-bohdan/PowerShell.Testing</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageTags>PowerShell, CLI, Test</PackageTags>
+		<Authors>Bohdan Dorokhin</Authors>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
+	<ItemGroup>
+	  <None Include="..\..\README.md" Link="README.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.PowerShell.SDK" />
